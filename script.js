@@ -1,8 +1,11 @@
-let filterColor = document.querySelector(".filter");
+//filter color selection
+let filterColor = document.querySelectorAll(".filter");
 
 let mainContainer = document.querySelector(".main-container");
 
-for(let i = 0; i < filterColor.clientHeight; i++ )
+let plusBtn = document.querySelector(".plus");
+
+for(let i = 0; i < filterColor.length; i++ )
 {
     filterColor[i].addEventListener("click", function()
     {
@@ -24,3 +27,26 @@ for(let i = 0; i < filterColor.clientHeight; i++ )
 
     })
 }
+
+plusBtn.addEventListener("click", function()
+{
+    let task = prompt("Enter your Task");
+
+    let color = prompt("Color");
+
+    if(task != "" && color != "")
+    {
+        let taskContainer = document.createElement("div");
+
+        taskContainer.setAttribute("class", "ticket_container");
+
+        taskContainer.innerHTML = `<div class = "ticket_color ${color}"></div>
+                                        <div class="ticket_desc_container">
+                                        <div class="ticket_id">#ExampleId</div>
+                                        <div class="ticket_desc">${task}</div>
+                                   </div>`;
+        mainContainer.appendChild(taskContainer);
+
+    }
+})
+
