@@ -3,11 +3,13 @@ let filterColor = document.querySelectorAll(".filter");
 
 let mainContainer = document.querySelector(".main-container");
 
-let modalColors = document.querySelector(".modal_color");
+let modalColors = document.querySelectorAll(".modal_color");
 
 let modalContainer = document.querySelector(".modal_container");
 
 let taskBox = document.querySelector(".task_box");
+
+let filterContainers = document.querySelectorAll(".filter-color-container");
 
 let plusBtn = document.querySelector(".plus");
 
@@ -22,7 +24,7 @@ for(let i = 0; i < filterColor.length; i++ )
     {
         let classes = filterColor[i].getAttribute("class");
 
-        let strArr = classes.split(" ");
+        //let strArr = classes.split(" ");
 
         let color = strArr[1];
 
@@ -60,7 +62,7 @@ taskBox.addEventListener("keydown", function(e)
 
         taskContainer.innerHTML = `<div class = "ticket_color ${iColor}"></div>
                                         <div class="ticket_desc_container">
-                                        <div class="ticket_id">${id}</div>
+                                        <div class="ticket_id">#${id}</div>
                                         <div class="ticket_desc">${task}</div>
                                    </div>`;
         mainContainer.appendChild(taskContainer);
@@ -101,7 +103,7 @@ function addFunctionality(taskContainer)
     ticketColor.addEventListener("click", function()
     {
         //cColor --> current color
-        let cColor = ticketColor.classList[i];
+        let cColor = ticketColor.classList[1];
 
         let idx = colors.indexOf(cColor);
 
@@ -115,4 +117,51 @@ function addFunctionality(taskContainer)
     })
 }
 
+
+// filtering logic
+let prevColor = null;
+
+for(let i = 0; i < filterContainers.length; i++)
+{
+    filterContainers[i].addEventListener("click", function()
+    {
+        let child = filterContainers[i].children[0];
+
+        let color = child.classList[1];
+
+        if(prevColor == color)
+        {
+            let ticketContainers = document.querySelectorAll(".ticket_container")
+
+            for(let j = 0; j < ticketContainers.length; j++)
+            {
+                ticketContainers[j].style.display = "block";
+            }
+            prevColor = null;
+        }
+
+        else
+        {
+            let ticketContainers = document.querySelectorAll(".ticket_container");
+
+            for(let j = 0; j < ticketContainers.length; j++)
+            {
+                let ticketColor = ticketContainers[j].children[0];
+
+                let myColor = ticketColor.classList[1];
+
+                if(myColor == color)
+                {
+                    ticketContainers[j].style.display = "block";
+                }
+                else
+                {
+                    ticketContainers[j].style.display = "none";
+                }
+            }
+
+            prevColor = color;
+        }
+    })
+}
 
