@@ -35,8 +35,7 @@ body{
     background-color: darkgray;
     width: 20rem;
     border-radius: 3px;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: 15rem;
     display: flex;
     border: 1px solid red;
     /* align-items: flex-start;
@@ -61,11 +60,13 @@ body{
 .action_container{
     height: 70%;
     width: 8rem;
-    border-right: 1px solid red;
+    /* border-right: 1px solid red; */
+    margin-left: 10rem;
     /* perfectly center */
     border-radius: 3px;
     display: flex;
-    /* background-color: blue; */
+    background-color: dark gray;
+
    
 }
 .icon_container{
@@ -121,4 +122,51 @@ body{
 .ticket_desc{
     text-align:center;
     font-size: 1.2rem;
+}
+
+.modal_container{
+    width: 31rem;
+    height: 18rem;
+    /* border: 1px solid yellow; */
+    display:none;
+    box-shadow: 0px 12px 12px rgba(195, 0, 255, 0.349);
+    position:absolute;
+}
+.task_container
+{
+    height: 100%;
+    width: 76%;
+    /* border: 1px solid blue; */
+}
+
+.modal_color_container {
+    height: 100%;
+    width: 25%;
+    background-color: rgba(0, 0, 0, 0.418);
+}
+
+.task_box
+{
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+}
+
+.modal_color
+{
+    height: 10%;
+    width: 66%;
+    border-radius: 2px;
+}
+
+.modal_color_container {
+    /* height: 100%;
+    width: 50%; */
+    /* background-color: gray; */
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    align-items: center;
+    justify-content: space-evenly;
+    
 }
