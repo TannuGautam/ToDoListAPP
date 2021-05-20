@@ -7,6 +7,10 @@ let modalColors = document.querySelectorAll(".modal_color");
 
 let modalContainer = document.querySelector(".modal_container");
 
+let removeBtn = document.querySelector(".remove");
+
+let deleteState = false;
+
 let taskBox = document.querySelector(".task_box");
 
 let filterContainers = document.querySelectorAll(".filter-color-container");
@@ -17,6 +21,50 @@ let plusBtn = document.querySelector(".plus");
 let iColor = "black";
 
 let colors = ["pink","blue","green","black"];
+
+let allTasks = [];
+
+//init
+
+//local storage part ***************
+        
+
+        
+if(localStorage.getItem("allTasks"))
+{
+    let strArr = localStorage.getItem("allTasks");
+
+    allTasks = JSON.parse(strArr);
+
+    for(let i = 0; i < allTasks.length; i++)
+    {
+        createTicketFromLocalStorage(allTasks[i]);
+    }
+}
+
+
+function createTicketFromLocalStorage(taskObj)
+{
+    let { id, color,task } = taskObj;
+
+    let taskContainer = document.createElement("div");
+
+    taskContainer.setAttribute("class", "ticket_container");
+
+    taskContainer.innerHTML = `<div class = "ticket_color ${color}"></div>
+                                    <div class="ticket_desc_container">
+                                    <div class="ticket_id">#${id}</div>
+                                    <div class="ticket_desc">${task}</div>
+                                </div>`;
+    mainContainer.appendChild(taskContainer);
+
+    addFunctionality(taskContainer);
+
+}
+
+
+
+//******************* */
 
 for(let i = 0; i < filterColor.length; i++ )
 {
@@ -67,13 +115,33 @@ taskBox.addEventListener("keydown", function(e)
                                    </div>`;
         mainContainer.appendChild(taskContainer);
 
+        //local storage part ***************
+
+        let ticketObj = {};
+
+        ticketObj.task = task;
+
+        ticketObj.color = iColor;
+
+        ticketObj.id = id;
+
+        allTasks.push(ticketObj);
+
+        let strArr = JSON.stringify(allTasks);
+
+        localStorage.setItem('allTasks',strArr);
+        
+        //******************* */
+
         modalContainer.style.display = "none";
 
         taskBox.value = "";
 
         iColor = "black";
+
         addFunctionality(taskContainer);
 
+        //handleDeleteContainer(taskContainer);
     }
 })
 
@@ -96,6 +164,7 @@ for(let i = 0; i < modalColors.length; i++)
     })
 }
 
+
 function addFunctionality(taskContainer)
 {
     let ticketColor = taskContainer.querySelector(".ticket_color");
@@ -114,6 +183,27 @@ function addFunctionality(taskContainer)
         ticketColor.classList.remove(cColor);
 
         ticketColor.classList.add(newColor);
+
+    //local storage part ***************
+        let ticketIdElement = taskContainer.querySelector(".ticket_id");
+
+        let id = ticketIdElement.innerText;
+
+        id = id.slice(1);
+
+        for(let i = 0; i < allTasks.length; i++)
+        {
+            if(allTasks[i].id == id)
+            {
+                allTasks[i].color = newColor;
+
+                let strArr = JSON.stringify(allTasks);
+
+                localStorage.setItem('allTasks',strArr);
+            }
+        }
+
+    //******************* */
     })
 }
 
@@ -164,4 +254,43 @@ for(let i = 0; i < filterContainers.length; i++)
         }
     })
 }
+
+
+
+
+// removeBtn.addEventListener("click", function () {
+//     if (deleteState == false) {
+//         removeBtn.style.backgroundColor = "rgb(100, 71, 26)";
+//     } else {
+//         removeBtn.style.backgroundColor = "rgb(146, 102, 35)";
+//     }
+//     deleteState = !deleteState;
+// });
+
+// function handleDeleteContainer(taskContainer) {
+//     taskContainer.addEventListener("click", function () {
+//         if (deleteState == true) {
+// //  local storage
+//             let elem = taskContainer.querySelector(".ticket_id");
+//             let toBeDeletedId = elem.innerText.slice(1);
+//             // console.log(toBeDeletedId);
+//             let idx = taskArr.findIndex(function (ticket) {
+//                 return ticket.id == toBeDeletedId;
+//             })
+//             // console.log(idx);
+//             taskArr.splice(idx, 1);
+//             localStorage.setItem("allTasks", JSON.stringify(taskArr));
+//         //    UI remove
+//             taskContainer.remove();
+//         }
+//     });
+
+// }
+
+
+
+//local storage part ***************
+        
+
+//******************* */
 

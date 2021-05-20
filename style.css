@@ -38,6 +38,8 @@ body{
     margin-left: 15rem;
     display: flex;
     border: 1px solid red;
+    margin-left: 2rem;
+    margin-right: 2rem;
     /* align-items: flex-start;
     justify-content: center;
     align-content: center; */
@@ -61,7 +63,6 @@ body{
     height: 70%;
     width: 8rem;
     /* border-right: 1px solid red; */
-    margin-left: 10rem;
     /* perfectly center */
     border-radius: 3px;
     display: flex;
@@ -142,7 +143,7 @@ body{
 .modal_color_container {
     height: 100%;
     width: 25%;
-    background-color: rgba(0, 0, 0, 0.418);
+    background-color: #444;
 }
 
 .task_box
@@ -154,8 +155,8 @@ body{
 
 .modal_color
 {
-    height: 10%;
-    width: 66%;
+    height: 12%;
+    width: 73%;
     border-radius: 2px;
 }
 
@@ -169,4 +170,24 @@ body{
     align-items: center;
     justify-content: space-evenly;
     
+}
+
+.border {
+    border: 5px solid rgb(0, 102, 255);
+}
+
+.lock{
+    background-color: yellow;
+    margin-left: 4rem;
+    padding: 0.8rem;
+}
+
+.fas{
+    font-size:x-large;
+}
+
+@media only screen and (min-width: 1800px) {
+    html {
+        font-size: 200%;
+    }
 }
