@@ -89,9 +89,12 @@ body{
 .main-container{
     min-height: 88vh;
     padding-top: 3rem;
-    padding-left: 3rem;
+    padding-right: 1vh;
+    padding-left: 3vh;
     background-color:aliceblue;
     display: flex;
+    gap:2rem;
+    align-items: baseline;
     justify-content: space-around;
     flex-wrap: wrap; 
     /* background-color:rgb(230, 223, 215);   */
