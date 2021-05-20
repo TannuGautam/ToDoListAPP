@@ -7,15 +7,16 @@ let modalColors = document.querySelectorAll(".modal_color");
 
 let modalContainer = document.querySelector(".modal_container");
 
-let removeBtn = document.querySelector(".remove");
-
-let deleteState = false;
 
 let taskBox = document.querySelector(".task_box");
 
 let filterContainers = document.querySelectorAll(".filter-color-container");
 
 let plusBtn = document.querySelector(".plus");
+
+let removeBtn = document.querySelector(".remove");
+
+let deleteState = false;
 
 //intial color
 let iColor = "black";
@@ -60,6 +61,8 @@ function createTicketFromLocalStorage(taskObj)
 
     addFunctionality(taskContainer);
 
+    handleDeleteContainer(taskContainer);
+
 }
 
 
@@ -91,6 +94,7 @@ for(let i = 0; i < filterColor.length; i++ )
 
 //adding the modals js part
 
+//adding new tickets
 plusBtn.addEventListener("click", function()
 {
     modalContainer.style.display = "flex";
@@ -141,7 +145,7 @@ taskBox.addEventListener("keydown", function(e)
 
         addFunctionality(taskContainer);
 
-        //handleDeleteContainer(taskContainer);
+        handleDeleteContainer(taskContainer);
     }
 })
 
@@ -164,7 +168,7 @@ for(let i = 0; i < modalColors.length; i++)
     })
 }
 
-
+//handle color change in tickets
 function addFunctionality(taskContainer)
 {
     let ticketColor = taskContainer.querySelector(".ticket_color");
@@ -208,7 +212,7 @@ function addFunctionality(taskContainer)
 }
 
 
-// filtering logic
+// filtering logic , to filter out tasks based on priority ie colors
 let prevColor = null;
 
 for(let i = 0; i < filterContainers.length; i++)
@@ -256,41 +260,44 @@ for(let i = 0; i < filterContainers.length; i++)
 }
 
 
+//to remove any ticket which is created
+removeBtn.addEventListener("click", function () {
+    if (deleteState == false) {
+        removeBtn.style.backgroundColor = "green"//"rgb(100, 71, 26)";
+    } else {
+        removeBtn.style.backgroundColor = "gray"//"rgb(146, 102, 35)";
+    }
+    deleteState = !deleteState;
+});
+
+function handleDeleteContainer(taskContainer) {
+    taskContainer.addEventListener("click", function () {
+        if (deleteState == true) {
+
+            let idx = taskContainer.children[1].children[0].textContent.slice(1);
+
+            for(let i = 0; i < allTasks.length; i++)
+            {
+                if(allTasks[i].id == idx)
+                {
+                    allTasks.splice(i,1);
+                    console.log(allTasks);
+                    break;
+                }
+            }
+
+            //local storage
+
+            let strArr = JSON.stringify(allTasks);
+
+            localStorage.setItem("allTasks",strArr );
+            
+        //    UI remove
+            taskContainer.remove();
+        }
+    });
+
+}
 
 
-// removeBtn.addEventListener("click", function () {
-//     if (deleteState == false) {
-//         removeBtn.style.backgroundColor = "rgb(100, 71, 26)";
-//     } else {
-//         removeBtn.style.backgroundColor = "rgb(146, 102, 35)";
-//     }
-//     deleteState = !deleteState;
-// });
-
-// function handleDeleteContainer(taskContainer) {
-//     taskContainer.addEventListener("click", function () {
-//         if (deleteState == true) {
-// //  local storage
-//             let elem = taskContainer.querySelector(".ticket_id");
-//             let toBeDeletedId = elem.innerText.slice(1);
-//             // console.log(toBeDeletedId);
-//             let idx = taskArr.findIndex(function (ticket) {
-//                 return ticket.id == toBeDeletedId;
-//             })
-//             // console.log(idx);
-//             taskArr.splice(idx, 1);
-//             localStorage.setItem("allTasks", JSON.stringify(taskArr));
-//         //    UI remove
-//             taskContainer.remove();
-//         }
-//     });
-
-// }
-
-
-
-//local storage part ***************
-        
-
-//******************* */
 
