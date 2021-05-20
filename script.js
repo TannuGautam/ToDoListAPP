@@ -1,3 +1,5 @@
+'use strict';
+
 //filter color selection
 let filterColor = document.querySelectorAll(".filter");
 
@@ -7,6 +9,7 @@ let modalColors = document.querySelectorAll(".modal_color");
 
 let modalContainer = document.querySelector(".modal_container");
 
+let lock = document.querySelector(".lock");
 
 let taskBox = document.querySelector(".task_box");
 
@@ -17,6 +20,8 @@ let plusBtn = document.querySelector(".plus");
 let removeBtn = document.querySelector(".remove");
 
 let deleteState = false;
+
+let isLock = false;
 
 //intial color
 let iColor = "black";
@@ -291,7 +296,7 @@ function handleDeleteContainer(taskContainer) {
             let strArr = JSON.stringify(allTasks);
 
             localStorage.setItem("allTasks",strArr );
-            
+
         //    UI remove
             taskContainer.remove();
         }
@@ -299,5 +304,63 @@ function handleDeleteContainer(taskContainer) {
 
 }
 
+//handling the lock button
+//we edit the ticket descrtiption by lock n unlock method
+
+lock.addEventListener("click", function()
+{
+    //if cross button lock then unlock it
+    let ticketDescription = document.querySelectorAll(".ticket_desc_container");
+    
+    if(isLock == false)
+    {
+        lock.children[0].remove();
+
+        lock.innerHTML = `<i class="fas fa-unlock-alt"></i>`;
+
+        //edit description
+
+        for(let i = 0; i < ticketDescription.length; i++)
+        {
+            ticketDescription[i].setAttribute("contenteditable","true");
+        }
+
+        isLock = true; 
+    }
+    //if cross button unlock then lock it
+    else
+    {
+        lock.children[0].remove();
+
+        lock.innerHTML = `<i class="fas fa-lock icon"></i>`;
+
+        isLock = false;
+
+        tasks= [];
+
+        for(let i = 0; i < ticketDescription.length; i++)
+        {
+            ticketDescription[i].setAttribute("contenteditable","false");
+
+            //store changes into localStorage
+
+            let ticket = ticketDescription[i].parentNode;
+
+            let ticketObj = {};
+
+            ticketObj.task = ticket.children[1].textContent;
+
+            ticketObj.colorr = ticket.children[0].children[1];
+
+            ticketObj.id = ticket.children[1].children[0].textContent.slice(1);
+
+            tasks.push(ticketObj);
+
+        }
+
+        let strArr = JSON.stringify(tasks);
+        localStorage.setItem("tasks", strArr);
+    }
+})
 
 
