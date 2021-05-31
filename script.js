@@ -309,7 +309,7 @@ function handleDeleteContainer(taskContainer) {
 
 lock.addEventListener("click", function()
 {
-    //if cross button lock then unlock it
+    //if u want add something in ticket description , if lock then unlock it
     let ticketDescription = document.querySelectorAll(".ticket_desc_container");
     
     if(isLock == false)
@@ -327,7 +327,7 @@ lock.addEventListener("click", function()
 
         isLock = true; 
     }
-    //if cross button unlock then lock it
+    //if u want add something in ticket description , if unlock then lock it
     else
     {
         lock.children[0].remove();
@@ -336,7 +336,7 @@ lock.addEventListener("click", function()
 
         isLock = false;
 
-        tasks= [];
+        allTasks = [];
 
         for(let i = 0; i < ticketDescription.length; i++)
         {
@@ -348,18 +348,18 @@ lock.addEventListener("click", function()
 
             let ticketObj = {};
 
-            ticketObj.task = ticket.children[1].textContent;
+            ticketObj.task = ticket.children[1].children[1].textContent;
 
-            ticketObj.colorr = ticket.children[0].children[1];
+            ticketObj.colorr = ticket.children[0].classList[1];
 
             ticketObj.id = ticket.children[1].children[0].textContent.slice(1);
 
-            tasks.push(ticketObj);
+            allTasks.push(ticketObj);
 
         }
 
-        let strArr = JSON.stringify(tasks);
-        localStorage.setItem("tasks", strArr);
+        let strArr = JSON.stringify(allTasks);
+        localStorage.setItem("allTasks", strArr);
     }
 })
 
