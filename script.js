@@ -310,13 +310,15 @@ function handleDeleteContainer(taskContainer) {
 lock.addEventListener("click", function()
 {
     //if u want add something in ticket description , if lock then unlock it
-    let ticketDescription = document.querySelectorAll(".ticket_desc_container");
+    let ticketDescription = document.querySelectorAll(".ticket_desc");
     
     if(isLock == false)
     {
         lock.children[0].remove();
 
         lock.innerHTML = `<i class="fas fa-unlock-alt"></i>`;
+
+        isLock = true; 
 
         //edit description
 
@@ -325,7 +327,7 @@ lock.addEventListener("click", function()
             ticketDescription[i].setAttribute("contenteditable","true");
         }
 
-        isLock = true; 
+        
     }
     //if u want add something in ticket description , if unlock then lock it
     else
@@ -344,13 +346,13 @@ lock.addEventListener("click", function()
 
             //store changes into localStorage
 
-            let ticket = ticketDescription[i].parentNode;
+            let ticket = ticketDescription[i].parentNode.parentNode;
 
             let ticketObj = {};
 
             ticketObj.task = ticket.children[1].children[1].textContent;
 
-            ticketObj.colorr = ticket.children[0].classList[1];
+            ticketObj.color = ticket.children[0].classList[1];
 
             ticketObj.id = ticket.children[1].children[0].textContent.slice(1);
 
